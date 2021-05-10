@@ -1,0 +1,30 @@
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Doctor List</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Doctor ID</th>
+          <th>Doctor Name</th>
+          <th>Doctor Type</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of doctors| async">
+          <td>{{doctor.doctorId}}</td>
+          <td>{{doctor.doctorName}}</td>
+          <td>{{doctor.doctorType}}</td>
+          <td><button  class="btn btn-primary" [routerLink]="['/doctors/appointments']" [queryParams]="{docId: doctor.doctorId}" >Book Appointment</button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

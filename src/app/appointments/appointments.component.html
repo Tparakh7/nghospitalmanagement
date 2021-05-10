@@ -1,0 +1,163 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div [hidden]="submitted" style="width: 400px">
+        <form #regForm="ngForm" (ngSubmit)="onSubmit()">
+          <div class="form">
+            <div class="form-group">
+              <label for="inputName">Patient Name</label>
+              <input
+                [class.is-invalid]="inputname.invalid && inputname.touched"
+                type="text"
+                class="form-control"
+                id="inputName"
+                #inputname="ngModel"
+                placeholder="For Eg: Robert D'costa"
+                minlength="2"
+                required
+                [(ngModel)]="appointment.PatientName"
+                name="PatientName"
+              />
+              <span *ngIf="inputname.invalid && inputname.touched">
+                <small *ngIf="inputname.errors?.required" class="text-danger">
+                  Patient Name Is Required</small
+                >
+                <small *ngIf="inputname.errors?.minlength" class="text-danger">
+                  Patient Full Name Is Required</small
+                >
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Patient Address</label>
+            <input
+              [class.is-invalid]="inputaddress.invalid && inputaddress.touched"
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              #inputaddress="ngModel"
+              placeholder="For Eg: 22B Baker Street"
+              minlength="2"
+              required
+              [(ngModel)]="appointment.PatientAddress"
+              name="PatientAddress"
+            />
+            <span *ngIf="inputaddress.invalid && inputaddress.touched">
+              <small *ngIf="inputaddress.errors?.required" class="text-danger">
+                Patient Address Is Required</small
+              >
+              <small *ngIf="inputaddress.errors?.minlength" class="text-danger">
+                Enter Full Address</small
+              >
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="inputContactNumber">Patient's Contact Number </label>
+            <input
+              [class.is-invalid]="inputaddress.invalid && inputaddress.touched"
+              type="tel"
+              class="form-control"
+              id="inputContactNumber"
+              #inputcontactno="ngModel"
+              minlength="10"
+              placeholder="For Eg: 0123456789"
+              required
+              [(ngModel)]="appointment.ContactNumber"
+              name="ContactNumber"
+            />
+            <span *ngIf="inputcontactno.invalid && inputcontactno.touched">
+              <small
+                *ngIf="inputcontactno.errors?.required"
+                class="text-danger"
+              >
+                Patient Contact Number Is Required</small
+              >
+              <small
+                *ngIf="inputcontactno.errors?.minlength"
+                class="text-danger"
+              >
+                Contact Number Invalid</small
+              >
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Date Of Visit</label>
+            <div class="input-group">
+              <input
+                [class.is-invalid]="
+                  inputaddress.invalid && inputaddress.touched
+                "
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                #datevisit="ngModel"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                required
+                [(ngModel)]="appointment.AppointDate"
+                name="AppointDate"
+                [minDate]="{ year: 2021, month: 5, day: 10 }"
+                [maxDate]="{ year: 2021, month: 5, day: 30 }"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary calendar"
+                  (click)="d.toggle()"
+                  type="button"
+                ></button>
+              </div>
+            </div>
+            <span *ngIf="datevisit.invalid && datevisit.touched">
+              <small *ngIf="datevisit.errors?.required" class="text-danger">
+                Please Mention Date Of Visit</small
+              >
+            </span>
+          </div>
+          <div class="form-group">
+            <!-- <label>Time Of Visit (24 Hour Format)</label>
+          <ngb-timepicker  required [(ngModel)]="appointment.AppointTime"  name="AppointTime"></ngb-timepicker> -->
+            <label>Time Of Visit</label>
+            <div class="input-group">
+              <input
+                [class.is-invalid]="timevisit.invalid && timevisit.touched"
+                name="AppointTime"
+                placeholder="For Eg: 3:33 AM"
+                #timevisit
+                required
+                [(ngModel)]="appointment.AppointTime"
+                [ngxTimepicker]="picker"
+                [min]="'09:00 am'"
+                [max]="'10:00 pm'"
+              />
+            </div>
+
+            <ngx-material-timepicker
+              #picker
+              ngDefaultControl
+            ></ngx-material-timepicker>
+            <span *ngIf="timevisit.invalid && timevisit.touched">
+              <small *ngIf="timevisit.errors?.required" class="text-danger">
+                Please Mention Time Of Visit</small
+              >
+            </span>
+          </div>
+
+          <div class="form-group col-md-6">
+            <button
+              type="submit"
+              [disabled]="regForm.invalid"
+              class="btn btn-primary"
+            >
+              Book
+            </button>
+          </div>
+        </form>
+      </div>
+      <div [hidden]="!submitted">
+        <!-- <h4>Your appointment has been successfully scheduled!</h4> -->
+        <!-- <h3>{{errorMsg}}</h3> -->
+      </div>
+    </div>
+  </div>
+</div>
